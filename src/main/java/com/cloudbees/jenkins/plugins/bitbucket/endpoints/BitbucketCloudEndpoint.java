@@ -154,7 +154,7 @@ public class BitbucketCloudEndpoint extends AbstractBitbucketEndpoint {
         }
 
         public FormValidation doShowStats() {
-            Jenkins.get().checkPermission(Jenkins.MANAGE);
+            Jenkins.get().checkPermission(Jenkins.ADMINISTER);
             List<String> stats = BitbucketCloudApiClient.stats();
             StringBuilder builder = new StringBuilder();
             for (String stat : stats) {
@@ -165,7 +165,7 @@ public class BitbucketCloudEndpoint extends AbstractBitbucketEndpoint {
 
         @POST
         public FormValidation doClear() {
-            Jenkins.get().checkPermission(Jenkins.MANAGE);
+            Jenkins.get().checkPermission(Jenkins.ADMINISTER);
             BitbucketCloudApiClient.clearCaches();
             return FormValidation.ok("Caches cleared");
         }
