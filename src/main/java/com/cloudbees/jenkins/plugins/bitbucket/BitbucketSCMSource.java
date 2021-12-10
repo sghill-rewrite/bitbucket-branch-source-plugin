@@ -59,6 +59,7 @@ import hudson.model.Item;
 import hudson.model.TaskListener;
 import hudson.plugins.git.GitSCM;
 import hudson.scm.SCM;
+import hudson.security.AccessControlled;
 import hudson.util.FormFillFailure;
 import hudson.util.FormValidation;
 import hudson.util.ListBoxModel;
@@ -1141,7 +1142,9 @@ public class BitbucketSCMSource extends SCMSource {
         }
 
         @SuppressWarnings("unused") // used By stapler
-        public static FormValidation doCheckServerUrl(@QueryParameter String value) {
+        public static FormValidation doCheckServerUrl(@AncestorInPath SCMSourceOwner context, @QueryParameter String value) {
+            AccessControlled contextToCheck = context == null ? Jenkins.get() : context;
+            contextToCheck.checkPermission(Item.CONFIGURE);
             if (BitbucketEndpointConfiguration.get().findEndpoint(value) == null) {
                 return FormValidation.error("Unregistered Server: " + value);
             }
@@ -1154,7 +1157,11 @@ public class BitbucketSCMSource extends SCMSource {
         }
 
         @SuppressWarnings("unused") // used By stapler
-        public ListBoxModel doFillServerUrlItems() {
+        public ListBoxModel doFillServerUrlItems(@AncestorInPath SCMSourceOwner context) {
+            AccessControlled contextToCheck = context == null ? Jenkins.get() : context;
+            if (!contextToCheck.hasPermission(Item.CONFIGURE)) {
+                return new ListBoxModel();
+            }
             return BitbucketEndpointConfiguration.get().getEndpointItems();
         }
 
