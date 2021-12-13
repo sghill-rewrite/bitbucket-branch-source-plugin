@@ -10,7 +10,6 @@ import hudson.model.Item;
 import hudson.model.User;
 import hudson.security.ACL;
 import hudson.security.ACLContext;
-import hudson.security.AccessDeniedException3;
 import hudson.util.ListBoxModel;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -79,7 +78,7 @@ public class Security2033Test {
         try (ACLContext aclContext = ACL.as(User.getOrCreateByIdOrFullName(NOT_AUTHORIZED_USER))) {
             descriptor.doCheckCredentialsId(pr, SERVER_URL, "nonEmpty");
             fail("Should fail with AccessDeniedException2");
-        } catch (AccessDeniedException3 accessDeniedException2) {
+        } catch (Exception accessDeniedException2) {
             assertThat(accessDeniedException2.getMessage(), is(NOT_AUTHORIZED_USER + " is missing the Credentials/View permission"));
         }
     }
@@ -91,7 +90,7 @@ public class Security2033Test {
         try (ACLContext aclContext = ACL.as(User.getOrCreateByIdOrFullName(NOT_AUTHORIZED_USER))) {
             descriptor.doCheckCredentialsId(pr, SERVER_URL, "nonEmpty");
             fail("Should fail with AccessDeniedException2 but not");
-        } catch (AccessDeniedException3 accessDeniedException2) {
+        } catch (Exception accessDeniedException2) {
             assertThat(accessDeniedException2.getMessage(), is(NOT_AUTHORIZED_USER + " is missing the Credentials/View permission"));
         }
     }
@@ -122,7 +121,7 @@ public class Security2033Test {
         try (ACLContext aclContext = ACL.as(User.getOrCreateByIdOrFullName(NOT_AUTHORIZED_USER))) {
             BitbucketSCMSource.DescriptorImpl.doCheckServerUrl(pr, SERVER_URL);
             fail("Should fail with AccessDeniedException2");
-        } catch (AccessDeniedException3 accessDeniedException2) {
+        } catch (Exception accessDeniedException2) {
             assertThat(accessDeniedException2.getMessage(), is(NOT_AUTHORIZED_USER + " is missing the Job/Configure permission"));
         }
     }
@@ -134,7 +133,7 @@ public class Security2033Test {
         try (ACLContext aclContext = ACL.as(User.getOrCreateByIdOrFullName(NOT_AUTHORIZED_USER))) {
             descriptor.doShowStats();
             fail("Should fail with AccessDeniedException2");
-        } catch (AccessDeniedException3 accessDeniedException2) {
+        } catch (Exception accessDeniedException2) {
             assertThat(accessDeniedException2.getMessage(), is(NOT_AUTHORIZED_USER + " is missing the Overall/Administer permission"));
         }
     }
@@ -146,7 +145,7 @@ public class Security2033Test {
         try (ACLContext aclContext = ACL.as(User.getOrCreateByIdOrFullName(NOT_AUTHORIZED_USER))) {
             descriptor.doClear();
             fail("Should fail with AccessDeniedException2");
-        } catch (AccessDeniedException3 accessDeniedException2) {
+        } catch (Exception accessDeniedException2) {
             assertThat(accessDeniedException2.getMessage(), is(NOT_AUTHORIZED_USER + " is missing the Overall/Administer permission"));
         }
     }
