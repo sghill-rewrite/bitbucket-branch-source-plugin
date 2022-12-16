@@ -400,17 +400,18 @@ public class BitbucketServerAPIClient implements BitbucketApi {
     }
 
     private void setupClosureForPRBranch(BitbucketServerPullRequest pr) {
-        try {
-            BitbucketServerBranch branch = (BitbucketServerBranch) pr.getSource().getBranch();
-            if (branch != null) {
-                branch.setCommitClosure(new CommitClosure(branch.getRawNode()));
-            }
-            branch = (BitbucketServerBranch) pr.getDestination().getBranch();
-            if (branch != null) {
-                branch.setCommitClosure(new CommitClosure(branch.getRawNode()));
-            }
-        } catch (NullPointerException e) {
-            LOGGER.log(Level.SEVERE, "setupClosureForPRBranch", e);
+        if (pr == null) {
+            LOGGER.log(Level.SEVERE, "setupClosureForPRBranch");
+            return;
+        }
+
+        BitbucketServerBranch branch = (BitbucketServerBranch) pr.getSource().getBranch();
+        if (branch != null) {
+            branch.setCommitClosure(new CommitClosure(branch.getRawNode()));
+        }
+        branch = (BitbucketServerBranch) pr.getDestination().getBranch();
+        if (branch != null) {
+            branch.setCommitClosure(new CommitClosure(branch.getRawNode()));
         }
     }
 
