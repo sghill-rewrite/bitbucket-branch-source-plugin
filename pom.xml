@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>4.80</version>
+    <version>4.81</version>
     <relativePath />
   </parent>
 
@@ -26,9 +26,10 @@
   </licenses>
 
   <properties>
+    <basedir>/home/ubuntu/jenkins-agent/workspace/cli-ingest/jenkinsci_bitbucket-branch-source-plugin_master</basedir>
     <changelist>999999-SNAPSHOT</changelist>
     <gitHubRepo>jenkinsci/bitbucket-branch-source-plugin</gitHubRepo>
-    <jenkins.version>2.401.3</jenkins.version>
+    <jenkins.version>2.426.3</jenkins.version>
     <hpi.compatibleSinceVersion>2.0</hpi.compatibleSinceVersion>
   </properties>
 
@@ -62,8 +63,8 @@
     <dependencies>
       <dependency>
         <groupId>io.jenkins.tools.bom</groupId>
-        <artifactId>bom-2.401.x</artifactId>
-        <version>2745.vc7b_fe4c876fa_</version>
+        <artifactId>bom-2.426.x</artifactId>
+        <version>2982.vdce2153031a_0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
